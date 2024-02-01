@@ -6,11 +6,11 @@ B,Boron
 C,Carbon
 O,Oxygen
 N,Nitrogen
-F,Flourine
+F,Fluorine
 Ne,Neon
 Na,Sodium
 Mg,Magnesium
-Al,Aluminum
+Al,Aluminium
 Si,Silicon
 P,Phosphorus
 S,Sulfur
@@ -35,7 +35,7 @@ Se,Selenium
 Br,Bromine
 Kr,Krypton
 Rb,Rubidium
-Sr,Stronium
+Sr,Strontium
 I,Iodine
 Xe,Xenon
 Cs,Caesium
