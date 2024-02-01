@@ -48,7 +48,7 @@ function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
     const pair = data[currentIndex];
     const correctAnswer = (guessType === 'S') ? pair[0].toUpperCase() : pair[1].toUpperCase();
-    if (userAnswer === correctAnswer || (correctAnswer === "Aluminium" && userAnswer === "Aluminum")) { //handle both spellings of Alumin(i)um
+    if (userAnswer === correctAnswer || (correctAnswer === "Aluminium" && userAnswer.toUpperCase() === "ALUMINUM")) { //handle both spellings of Alumin(i)um
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }        
