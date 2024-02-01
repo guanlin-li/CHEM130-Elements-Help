@@ -54,7 +54,7 @@ function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
     const pair = data[currentIndex];
     const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
-    if (userAnswer === correctAnswer) { //handle both spellings of Alumin(i)um
+    if (correctAnswer.includes(userAnswer)) { //handle both spellings of Alumin(i)um
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }
