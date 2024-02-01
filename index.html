@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Element Quiz Game</title>
+    <title>Learn the CHEM130 Elements</title>
 </head>
 <body>
     <div id="quiz-container">
-        <h1>Element Quiz Game</h1>
+        <h1>Learn the CHEM130 Elements</h1>
         <p id="prompt">Type S to learn the symbols and N to learn the elements' names:</p>
         <input type="text" id="user-choice" placeholder="Type 'S' or 'N'">
         <button onclick="startQuiz()">Start Quiz</button>
@@ -18,12 +18,10 @@
         <button onclick="checkAnswer()">Submit</button>
         <p id="result"></p>
     </div>
+    <div id="wrong-answers-container" style="display: none;">
+        <h2>Incorrect Answers</h2>
+        <ul id="wrong-answers-list"></ul>
+    </div>        
     <script src="script.js"></script>
 </body>
-
-<div id="wrong-answers-container" style="display: none;">
-    <h2>Incorrect Answers</h2>
-    <ul id="wrong-answers-list"></ul>
-</div>
-
 </html>
