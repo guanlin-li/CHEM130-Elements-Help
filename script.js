@@ -2,7 +2,7 @@ let data;
 let currentIndex = 0;
 let numWrong = 0;
 let guessType;
-let wrongAnswers = [];
+let wrongAnswers = {};
 
 function startQuiz() {
     document.getElementById('result-container').style.display = "none";
@@ -55,17 +55,25 @@ function showQuestion() {
 }
 
 function checkAnswer() {
-    const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
+    const userAnswer = document.getElementById('user-input').value.trim();
     const pair = data[currentIndex];
     const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
-    if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer)) {
+    if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer.toUpperCase())) {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }
         currentIndex++;
         showQuestion();
     } else {
-        wrongAnswers[numWrong] = `${(guessType === 'S') ? pair.names.join('/') : pair.symbol}: ${correctAnswer.join('/')}`;
+        const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
+        if (wrongAnswers.has(question)) {
+            wrongAnswers[question].userAnswers[wrongAnswers[question].userAnswers.length()] = userAnswer;
+        } else {
+            wrongAnswers[question] = {
+                correctAnswer: correctAnswer.join('/'),
+                userAnswers: [userAnswer],
+            };
+        }
         numWrong++;
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
@@ -82,7 +90,9 @@ function showResult() {
     const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
     document.getElementById('accuracy-display').innerText = accuracy;
 
-    document.getElementById('wrong-answers-display').innerText = wrongAnswers.join('\n');
+    document.getElementById('wrong-answers-display').innerText = Array.from(wrongAnswers).map(([question, answers]) => {
+        `${question} (${answers.correctAnswer}): ${answers.userAnswers.join(', ')}`
+    }).join('\n');
 
     document.getElementById('result-container').style.display = "default";
     document.getElementById('quiz-container').style.display = "none";
