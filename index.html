@@ -8,8 +8,6 @@
     <title>Learn the CHEM130 Elements</title>
 </head>
 <body>
-    <div id="quiz-container">
-        <h1>Learn the CHEM130 Elements</h1>
         <p id="prompt">Type S to learn the symbols and N to learn the elements' names:</p>
         <input type="text" id="user-choice" placeholder="Type 'S' or 'N'">
         <button onclick="startQuiz()">Start Quiz</button>
@@ -17,11 +15,25 @@
         <input type="text" id="user-input" placeholder="Your answer">
         <button onclick="checkAnswer()">Submit</button>
         <p id="result"></p>
+    <div id="game-container">
+        <h1>Learn the CHEM130 Elements</h1>
+        <div id="quiz-container">
+            <p id="prompt">Type S to learn the symbols and N to learn the elements' names:</p>
+            <input type="text" id="user-choice" placeholder="Type 'S' or 'N'">
+            <button onclick="startQuiz()">Start Quiz</button>
+            <p id="question"></p>
+            <input type="text" id="user-input" placeholder="Your answer">
+            <button onclick="checkAnswer()">Submit</button>
+            <p id="result"></p>
+        </div>
+        <div id="result-container" style="display: always;">
+            <h2>Your results:</h2>
+            <p>Accuracy: <span id="accuracy-display"></span></p>
+            <h3>Questions you got wrong:</h3>
+            <p id="wrong-answers-display"></p>
+            <button onclick="location.reload()">Restart</button>
+        </div>
     </div>
-    <div id="wrong-answers-container" style="display: none;">
-        <h2>Incorrect Answers</h2>
-        <ul id="wrong-answers-list"></ul>
-    </div>        
     <script src="script.js"></script>
 </body>
 </html>

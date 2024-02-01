@@ -5,8 +5,11 @@ let guessType;
 let wrongAnswers = [];
 
 function startQuiz() {
+    document.getElementById('result-container').style.display = "none";
+    document.getElementById('quiz-container').style.display = "default";
+
     guessType = document.getElementById('user-choice').value.trim().toUpperCase();
-    
+
     if (guessType !== 'S' && guessType !== 'N') {
         alert('Invalid choice. Please enter "S" or "N".');
         return;
@@ -62,7 +65,7 @@ function checkAnswer() {
         currentIndex++;
         showQuestion();
     } else {
-        wrongAnswers[numWrong] = pair;
+        wrongAnswers[numWrong] = `${(guessType === 'S') ? pair.names.join('/') ? pair.symbol}: ${correctAnswer.join('/')}`;
         numWrong++;
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
@@ -75,32 +78,14 @@ function handleKeyPress(event) {
     }
 }
 
-/*
 function showResult() {
     const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
-    if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
-        location.reload();
-    }
-}
-*/
-function showResult() {
-    const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
+    document.getElementById('accuracy-display').innerText = accuracy;
 
-    if (numWrong > 0) {
-        const wrongAnswersContainer = document.getElementById('wrong-answers-container');
-        const wrongAnswersList = document.getElementById('wrong-answers-list');
+    document.getElementById('wrong-answers-display').innerText = wrongAnswers.join('\n');
 
-        wrongAnswers.forEach((pair, index) => {
-            const listItem = document.createElement('li');
-            listItem.textContent = `${index + 1}. ${pair[0]} - ${pair[1]}`;
-            wrongAnswersList.appendChild(listItem);
-        });
-
-        wrongAnswersContainer.style.display = 'block';
-    }
-    if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
-        location.reload();
-    }
+    document.getElementById('result-container').style.display = "default";
+    document.getElementById('quiz-container').style.display = "none";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
