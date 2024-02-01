@@ -19,7 +19,13 @@ function fetchData() {
     fetch("input.txt")
         .then(response => response.text())
         .then(csvData => {
-            data = csvData.trim().split('\n').map(line => line.split(','));
+            data = csvData.trim().split('\n').map(line => {
+                const split = line.split(',');
+                return {
+                    symbol: split[0],
+                    names: split.slice(1),
+                };
+            });
             data = shuffleArray(data); // Shuffle the array
             showQuestion();
         });
@@ -36,7 +42,7 @@ function shuffleArray(array) {
 function showQuestion() {
     if (currentIndex < data.length) {
         const pair = data[currentIndex];
-        const question = (guessType === 'S') ? pair[1] : pair[0];
+        const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
         document.getElementById('question').innerText = question;
         document.getElementById('user-input').value = ''; // Clear the user-input box
     } else {
@@ -47,16 +53,16 @@ function showQuestion() {
 function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
     const pair = data[currentIndex];
-    const correctAnswer = (guessType === 'S') ? pair[0].toUpperCase() : pair[1].toUpperCase();
-    if (userAnswer === correctAnswer || (correctAnswer == "ALUMINIUM" && userAnswer == "ALUMINUM")) { //handle both spellings of Alumin(i)um hopefully
+    const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
+    if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer)) {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
-        }        
+        }
         currentIndex++;
         showQuestion();
     } else {
         numWrong++;
-        document.getElementById('result').innerText = `Incorrect (${correctAnswer})`;
+        document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
     }
 }
