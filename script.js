@@ -53,8 +53,8 @@ function showQuestion() {
 function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
     const pair = data[currentIndex];
-    const correctAnswer = (guessType === 'S') ? [pair.symbol.toUpperCase()] : pair.names.map(name => name.toUpperCase());
-    if (correctAnswer.includes(userAnswer)) { //handle both spellings of Alumin(i)um
+    const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
+    if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer)) {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }
