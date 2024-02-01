@@ -62,7 +62,7 @@ function checkAnswer() {
         showQuestion();
     } else {
         numWrong++;
-        document.getElementById('result').innerText = `Incorrect (${correctAnswer})`;
+        document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
     }
 }
