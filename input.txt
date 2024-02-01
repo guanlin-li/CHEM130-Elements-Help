@@ -10,7 +10,7 @@ F,Fluorine
 Ne,Neon
 Na,Sodium
 Mg,Magnesium
-Al,Aluminium
+Al,Aluminum,Aluminium
 Si,Silicon
 P,Phosphorus
 S,Sulfur
