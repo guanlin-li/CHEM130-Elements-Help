@@ -16,7 +16,7 @@ function startQuiz() {
 }
 
 function fetchData() {
-    fetch("input-test.txt")
+    fetch("input.txt")
         .then(response => response.text())
         .then(csvData => {
             data = csvData.trim().split('\n').map(line => line.split(','));
