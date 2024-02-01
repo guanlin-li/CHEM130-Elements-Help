@@ -20,7 +20,7 @@ function fetchData() {
         .then(response => response.text())
         .then(csvData => {
             data = csvData.trim().split('\n').map(line => {
-                const split = line.toUpperCase().split(',');
+                const split = line.split(',');
                 return {
                     symbol: split[0],
                     names: split.slice(1),
@@ -53,7 +53,7 @@ function showQuestion() {
 function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
     const pair = data[currentIndex];
-    const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
+    const correctAnswer = (guessType === 'S') ? [pair.symbol.toUpperCase()] : pair.names.map(name => name.toUpperCase());
     if (correctAnswer.includes(userAnswer)) { //handle both spellings of Alumin(i)um
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
