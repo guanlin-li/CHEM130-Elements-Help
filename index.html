@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Quiz Game</title>
+    <title>Element Quiz Game</title>
 </head>
 <body>
     <div id="quiz-container">
-        <h1>CHEM 130 Learn the Elements</h1>
+        <h1>Element Quiz Game</h1>
+        <p id="prompt">Type S to learn the symbols and N to learn the elements' names:</p>
+        <input type="text" id="user-choice" placeholder="Type 'S' or 'N'">
+        <button onclick="startQuiz()">Start Quiz</button>
         <p id="question"></p>
         <input type="text" id="user-input" placeholder="Your answer">
         <button onclick="checkAnswer()">Submit</button>

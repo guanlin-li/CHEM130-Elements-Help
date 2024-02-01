@@ -1,6 +1,19 @@
 let data;
 let currentIndex = 0;
 let numWrong = 0;
+let guessType;
+
+function startQuiz() {
+    guessType = document.getElementById('user-choice').value.trim().toUpperCase();
+    
+    if (guessType !== 'S' && guessType !== 'N') {
+        alert('Invalid choice. Please enter "S" or "N".');
+        return;
+    }
+
+    document.getElementById('prompt').style.display = 'none';
+    fetchData();
+}
 
 function fetchData() {
     fetch("input-csv.txt")
@@ -8,7 +21,7 @@ function fetchData() {
         .then(csvData => {
             data = csvData.trim().split('\n').map(line => line.split(','));
             data = shuffleArray(data); // Shuffle the array
-            startQuiz();
+            showQuestion();
         });
 }
 
@@ -20,14 +33,10 @@ function shuffleArray(array) {
     return array;
 }
 
-function startQuiz() {
-    showQuestion();
-}
-
 function showQuestion() {
     if (currentIndex < data.length) {
         const pair = data[currentIndex];
-        const question = pair[1];
+        const question = (guessType === 'S') ? pair[1] : pair[0];
         document.getElementById('question').innerText = question;
         document.getElementById('user-input').value = ''; // Clear the user-input box
     } else {
@@ -38,7 +47,7 @@ function showQuestion() {
 function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
     const pair = data[currentIndex];
-    const correctAnswer = pair[0].toUpperCase();
+    const correctAnswer = (guessType === 'S') ? pair[0].toUpperCase() : pair[1].toUpperCase();
 
     if (userAnswer === correctAnswer) {
         currentIndex++;
@@ -67,6 +76,5 @@ function showResult() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    fetchData();
     document.getElementById('user-input').addEventListener('keypress', handleKeyPress);
 });
