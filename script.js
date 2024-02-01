@@ -98,7 +98,6 @@ function showResult() {
 
         wrongAnswersContainer.style.display = 'block';
     }
-
     if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
         location.reload();
     }
