@@ -65,7 +65,7 @@ function checkAnswer() {
         currentIndex++;
         showQuestion();
     } else {
-        wrongAnswers[numWrong] = `${(guessType === 'S') ? pair.names.join('/') ? pair.symbol}: ${correctAnswer.join('/')}`;
+        wrongAnswers[numWrong] = `${(guessType === 'S') ? pair.names.join('/') : pair.symbol}: ${correctAnswer.join('/')}`;
         numWrong++;
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
