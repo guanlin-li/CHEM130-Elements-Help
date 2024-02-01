@@ -2,6 +2,7 @@ let data;
 let currentIndex = 0;
 let numWrong = 0;
 let guessType;
+let wrongAnswers = [];
 
 function startQuiz() {
     guessType = document.getElementById('user-choice').value.trim().toUpperCase();
@@ -55,6 +56,7 @@ function checkAnswer() {
         currentIndex++;
         showQuestion();
     } else {
+        wrongAnswers[numWrong] = pair;
         numWrong++;
         document.getElementById('result').innerText = `Incorrect (${correctAnswer})`;
         showQuestion();
@@ -67,8 +69,30 @@ function handleKeyPress(event) {
     }
 }
 
+/*
 function showResult() {
     const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
+    if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
+        location.reload();
+    }
+}
+*/
+function showResult() {
+    const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
+
+    if (numWrong > 0) {
+        const wrongAnswersContainer = document.getElementById('wrong-answers-container');
+        const wrongAnswersList = document.getElementById('wrong-answers-list');
+
+        wrongAnswers.forEach((pair, index) => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${index + 1}. ${pair[0]} - ${pair[1]}`;
+            wrongAnswersList.appendChild(listItem);
+        });
+
+        wrongAnswersContainer.style.display = 'block';
+    }
+
     if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
         location.reload();
     }
