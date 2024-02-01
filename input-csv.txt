@@ -21,7 +21,7 @@ Ca,Calcium
 Sc,Scandium
 Ti,Titanium
 V,Vanadium
-Cr,Chromium 
+Cr,Chromium
 Mn,Manganese
 Fe,Iron
 Co,Cobalt
