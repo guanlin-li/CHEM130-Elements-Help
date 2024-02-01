@@ -83,7 +83,11 @@ function showResult() {
     }
 }
 */
-function showResult() {
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function showResult() {
     const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
 
     if (numWrong > 0) {
@@ -95,7 +99,7 @@ function showResult() {
             listItem.textContent = `${index + 1}. ${pair[0]} - ${pair[1]}`;
             wrongAnswersList.appendChild(listItem);
         });
-
+        await sleep(10000);
         wrongAnswersContainer.style.display = 'block';
     }
     if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
