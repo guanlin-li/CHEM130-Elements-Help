@@ -48,18 +48,15 @@ function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
     const pair = data[currentIndex];
     const correctAnswer = (guessType === 'S') ? pair[0].toUpperCase() : pair[1].toUpperCase();
-
     if (userAnswer === correctAnswer) {
+        if(document.getElementById('result').innerText.includes('Incorrect')) {
+            document.getElementById('result').innerText = '';
+        }        
         currentIndex++;
-        numWrong = 0; // Reset wrong attempts for the current question
         showQuestion();
     } else {
-        document.getElementById('result').innerText = `Incorrect (${correctAnswer})`;
         numWrong++;
-        if (numWrong >= 3) {
-            currentIndex++;
-            numWrong = 0; // Skip to the next question after 3 wrong attempts
-        }
+        document.getElementById('result').innerText = `Incorrect (${correctAnswer})`;
         showQuestion();
     }
 }
@@ -72,7 +69,9 @@ function handleKeyPress(event) {
 
 function showResult() {
     const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
-    alert(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%`);
+    if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
+        location.reload();
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
