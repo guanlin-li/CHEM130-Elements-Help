@@ -30,7 +30,7 @@ body {
 
 #progress-bar {
     height: 100%;
-    background-color: var(--primary--darker);
+    background-color: var(--primary-darker);
     transition: width 200ms ease-in;
 }
 
