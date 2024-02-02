@@ -15,6 +15,7 @@
     --progress-bar-color: var(--primary);
     --input-background: var(--off-white);
     --input-foreground: black;
+    color-scheme: light;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -25,6 +26,7 @@
         --progress-bar-container-color: var(--mid-grey);
         --input-background: #666666 ;
         --input-foreground: var(--off-white-lighter);
+        color-scheme: dark;
     }
 }
 
