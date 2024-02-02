@@ -68,7 +68,7 @@ function checkAnswer() {
         const wrongAnswersList = document.getElementById('wrong-answers-list');  
         const listItem = document.createElement('li');
         listItem.appendChild(document.createTextNode(`${pair.names} - ${pair.symbol}`));
-        if (DocumentFragment.querySelector('wrong-answers-list li:last-child') != listItem) {
+        if (document.querySelector('wrong-answers-list li:last-child') != listItem) {
             wrongAnswersList.appendChild(listItem);
         }
         wrongAnswersContainer.style.display = 'block';              
