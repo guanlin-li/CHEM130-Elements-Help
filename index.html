@@ -8,9 +8,13 @@
     <title>Learn the CHEM130 Elements</title>
 </head>
 <body>
-    <div id="game-container">
+    <div id="main-window">
+        <div id="progress-bar-container">
+            <div id="progress-bar" style="width: 0%;"></div>
+        </div>
+    <div id="quiz-container">
         <h1>Learn the CHEM130 Elements</h1>
-        <div id="quiz-container">
+        <div id="question-container">
             <p id="prompt">Type S to learn the symbols and N to learn the elements' names:</p>
             <input type="text" id="user-choice" placeholder="Type 'S' or 'N'">
             <button onclick="startQuiz()">Start Quiz</button>
@@ -45,6 +49,7 @@
             </div>
             <button onclick="location.reload()">Restart</button>
         </div>
+    </div>
     </div>
     <script src="script.js"></script>
 </body>

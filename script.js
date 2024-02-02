@@ -6,7 +6,7 @@ const wrongAnswers = new Map();
 
 function startQuiz() {
     document.getElementById('result-container').style.display = "none";
-    document.getElementById('quiz-container').style.display = "always";
+    document.getElementById('question-container').style.display = "always";
 
     guessType = document.getElementById('user-choice').value.trim().toUpperCase();
 
@@ -73,6 +73,8 @@ function checkAnswer() {
         }
         wrongAnswers.get(question).incorrectAnswers.push('');
         currentIndex++;
+        document.getElementById('progress-bar').style.width = `${currentIndex / data.length}%`;
+
         showQuestion();
     } else {
         wrongAnswers.get(question).incorrectAnswers.push(userAnswer);
@@ -104,7 +106,7 @@ function showResult() {
     })
 
     document.getElementById('result-container').style.display = "always";
-    document.getElementById('quiz-container').style.display = "none";
+    document.getElementById('question-container').style.display = "none";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
