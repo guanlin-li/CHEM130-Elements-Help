@@ -61,22 +61,7 @@ function checkAnswer() {
         showQuestion();
     } else {
         //wrongAnswers[numWrong] = pair;
-        numWrong++;
-        const wrongAnswersContainer = document.getElementById('wrong-answers-container');
-        const wrongAnswersList = document.getElementById('wrong-answers-list');
-        
-        // Assuming 'pair' is an object with 'names' and 'symbol' properties        
-        const listItemText = `${pair.names} - ${pair.symbol}`;
-        
-        // Check if the same list item text already exists
-        const listItemAlreadyExists = Array.from(wrongAnswersList.children).some(item => item.textContent === listItemText);
-        
-        if (!listItemAlreadyExists) {
-            const listItem = document.createElement('li');
-            listItem.appendChild(document.createTextNode(listItemText));
-            wrongAnswersList.appendChild(listItem);
-        }
-        //wrongAnswersContainer.style.display = 'block';              
+        numWrong++;            
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
     }
@@ -88,27 +73,8 @@ function handleKeyPress(event) {
     }
 }
 
-/*
-function showResult() {
-    const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
-    if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
-        location.reload();
-    }
-}
-*/
-
 async function showResult() {
     const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
-    //if (numWrong > 0) {
-       // const wrongAnswersContainer = document.getElementById('wrong-answers-container');
-       // const wrongAnswersList = document.getElementById('wrong-answers-list');
-       // for (let [key, value] of numWrong) {
-       //     const listItem = document.createElement('li');
-        //    listItem.appendChild(document.createTextNode(`${value} - ${key}`));
-         //   wrongAnswersList.appendChild(listItem);
-        //};
-        //wrongAnswersContainer.style.display = 'block';
-    //}
     if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
         location.reload();
     }
