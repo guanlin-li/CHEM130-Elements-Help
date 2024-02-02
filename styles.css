@@ -18,8 +18,8 @@ body {
 
 #progress-bar-container {
     width: 100%;
-    height: 10px;
-    background-color: #f1f1f1;
+    height: 5px;
+    background-color: #f0f0f0;
 }
 
 #progress-bar {
@@ -47,7 +47,7 @@ th, td {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     text-align: center;
-    overflow: hidden;
+    overflow-x: hidden;
 }
 
 button {
@@ -56,6 +56,6 @@ button {
     cursor: pointer;
 }
 
-#result, .wrong-answer {
+#result, .wrong-answers {
     color: red;
 }

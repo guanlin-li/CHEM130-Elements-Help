@@ -6,7 +6,7 @@ const wrongAnswers = new Map();
 
 function startQuiz() {
     document.getElementById('result-container').style.display = "none";
-    document.getElementById('question-container').style.display = "always";
+    document.getElementById('question-container').style = {};
 
     guessType = document.getElementById('user-choice').value.trim().toUpperCase();
 
@@ -61,7 +61,7 @@ function checkAnswer() {
     const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
     const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
 
-    if (!wrongAnswers.has(correctAnswer)) {
+    if (!wrongAnswers.has(question)) {
         wrongAnswers.set(question, {
             correctAnswer: correctAnswer.join('/'),
             incorrectAnswers: new Array(),
@@ -106,7 +106,7 @@ function showResult() {
         table.appendChild(templateClone);
     })
 
-    document.getElementById('result-container').style.display = "always";
+    document.getElementById('result-container').style = {};
     document.getElementById('question-container').style.display = "none";
 }
 
