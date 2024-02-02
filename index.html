@@ -12,43 +12,43 @@
         <div id="progress-bar-container">
             <div id="progress-bar" style="width: 0%;"></div>
         </div>
-    <div id="quiz-container">
-        <h1>Learn the CHEM130 Elements</h1>
-        <div id="question-container">
-            <p id="prompt">Type S to learn the symbols and N to learn the elements' names:</p>
-            <input type="text" id="user-choice" placeholder="Type 'S' or 'N'">
-            <button id="start-button" onclick="startQuiz()">Start Quiz</button>
-            <p id="question"></p>
-            <input type="text" id="user-input" placeholder="Your answer" autocomplete="off">
-            <button onclick="checkAnswer()">Submit</button>
-            <p id="result"></p>
-        </div>
-        <div id="result-container" style="display: none;">
-            <h2>Results</h2>
-            <p>Accuracy: <span id="accuracy-display"></span></p>
-            <div id="answers-container">
-                <table id="answers-table">
-                    <thead>
-                        <tr>
-                            <th>Question</th>
-                            <th>Answer(s)</th>
-                        </tr>
-                    </thead>
-                    <tbody id="answers-display">
-                        <template id="answers-template">
-                            <tr>
-                                <td class="question"></td>
-                                <td>
-                                    <span class="wrong-answers"></span><span class="correct-answer"></span>
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
+        <div id="quiz-container">
+            <h1>Learn the CHEM130 Elements</h1>
+            <div id="question-container">
+                <p id="prompt">Type S to learn the symbols and N to learn the elements' names:</p>
+                <input type="text" id="user-choice" placeholder="Type 'S' or 'N'">
+                <button id="start-button" onclick="startQuiz()">Start Quiz</button>
+                <p id="question"></p>
+                <input type="text" id="user-input" placeholder="Your answer" autocomplete="off">
+                <button onclick="checkAnswer()">Submit</button>
+                <p id="result"></p>
             </div>
-            <button onclick="location.reload()">Restart</button>
+            <div id="result-container" style="display: none;">
+                <h2>Results</h2>
+                <p>Accuracy: <span id="accuracy-display"></span></p>
+                <div id="answers-container">
+                    <table id="answers-table">
+                        <thead>
+                            <tr>
+                                <th>Question</th>
+                                <th>Answer(s)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="answers-display">
+                            <template id="answers-template">
+                                <tr>
+                                    <td class="question"></td>
+                                    <td>
+                                        <span class="wrong-answers"></span><span class="correct-answer"></span>
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
+                </div>
+                <button onclick="location.reload()">Restart</button>
+            </div>
         </div>
-    </div>
     </div>
     <script src="script.js"></script>
 </body>
