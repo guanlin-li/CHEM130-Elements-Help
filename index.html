@@ -23,20 +23,24 @@
             <h2>Results</h2>
             <p>Accuracy: <span id="accuracy-display"></span></p>
             <div id="answers-container">
-                <table id="answers-display">
-                    <template id="answers-template">
+                <table id="answers-table">
+                    <thead>
                         <tr>
-                            <td class="question"></td>
-                            <td>
-                                <span class="wrong-answers"></span>
-                                <span class="correct-answer"></span>
-                            </td>
+                            <th>Question</th>
+                            <th>Answer(s)</th>
                         </tr>
-                    </template>
-                    <tr>
-                        <th>Question</th>
-                        <th>Answer(s)</th>
-                    </tr>
+                    </thead>
+                    <tbody id="answers-display">
+                        <template id="answers-template">
+                            <tr>
+                                <td class="question"></td>
+                                <td>
+                                    <span class="wrong-answers"></span>
+                                    <span class="correct-answer"></span>
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
                 </table>
             </div>
             <button onclick="location.reload()">Restart</button>

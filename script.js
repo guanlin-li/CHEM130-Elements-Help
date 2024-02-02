@@ -2,7 +2,7 @@ let data;
 let currentIndex = 0;
 let numWrong = 0;
 let guessType;
-let wrongAnswers = new Map();
+const wrongAnswers = new Map();
 
 function startQuiz() {
     document.getElementById('result-container').style.display = "none";
@@ -61,21 +61,21 @@ function checkAnswer() {
     const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
 
     if (!wrongAnswers.has(correctAnswer)) {
-        wrongAnswers[question] = {
+        wrongAnswers.set(question, {
             correctAnswer: correctAnswer.join('/'),
             incorrectAnswers: new Array(),
-        };
+        });
     }
 
     if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer.toUpperCase())) {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }
-        wrongAnswers[question].incorrectAnswers.push('');
+        wrongAnswers.get(question).incorrectAnswers.push('');
         currentIndex++;
         showQuestion();
     } else {
-        wrongAnswers[question].incorrectAnswers.push(userAnswer);
+        wrongAnswers.get(question).incorrectAnswers.push(userAnswer);
 
         numWrong++;
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
@@ -93,13 +93,14 @@ function showResult() {
     const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
     document.getElementById('accuracy-display').innerText = `${accuracy.toFixed(2)}%`;
 
+    const table = document.getElementById('answers-display');
     wrongAnswers.forEach(([question, answers]) => {
-        let templateClone = document.getElementById('answers-template').content.cloneNode(true);
-        templateClone.getElementsByClassName('question')[0].innerText = question;
-        templateClone.getElementsByClassName('wrong-answers')[0].innerText = answers.incorrectAnswers.join(', ');
-        templateClone.getElementsByClassName('correct-answer')[0].innerText = answers.correctAnswer;
+        const templateClone = document.getElementById('answers-template').content.cloneNode(true);
+        templateClone.querySelector('.question').innerText = question;
+        templateClone.querySelector('.wrong-answers').innerText = answers.incorrectAnswers.join(', ');
+        templateClone.querySelector('.correct-answer').innerText = answers.correctAnswer;
 
-        document.getElementById('answers-display').appendChild(templateClone);
+        table.appendChild(templateClone);
     })
 
     document.getElementById('result-container').style.display = "always";
