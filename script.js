@@ -2,15 +2,18 @@ let data;
 let currentIndex = 0;
 let numWrong = 0;
 let guessType;
-let wrongAnswers = [];
+const answers = new Map();
 
 function startQuiz(type) {
     if (type !== 'symbols' && type !== 'names')
-        return;
+      return;
+  
+    document.getElementById('result-container').classList.add("hidden");
+    document.getElementById('question-container').classList.remove("hidden");
+    document.getElementById('quiz-menu').classList.add("hidden");
+    document.getElementById('progress-bar').style.width = `0%`;
 
     guessType = type;
-    document.getElementById('quiz-menu').classList.add("hidden");
-    document.getElementById('quiz-display').classList.remove("hidden");
     fetchData();
 }
 
@@ -50,18 +53,32 @@ function showQuestion() {
 }
 
 function checkAnswer() {
-    const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
+    const userAnswer = document.getElementById('user-input').value.trim();
     const pair = data[currentIndex];
+    const question = (guessType === 'symbols') ? pair.names.join('/') : pair.symbol;
     const correctAnswer = (guessType === 'symbols') ? [pair.symbol] : pair.names;
-    if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer)) {
+
+    if (!answers.has(question)) {
+        answers.set(question, {
+            correctAnswer: '',
+            incorrectAnswers: new Array(),
+        });
+    }
+
+    if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer.toUpperCase())) {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }
+        answers.get(question).incorrectAnswers.push('');
+        answers.get(question).correctAnswer = userAnswer;
         currentIndex++;
+        document.getElementById('progress-bar').style.width = `${(currentIndex / data.length) * 100}%`;
+
         showQuestion();
     } else {
-        //wrongAnswers[numWrong] = pair;
-        numWrong++;            
+        answers.get(question).incorrectAnswers.push(userAnswer);
+
+        numWrong++;          
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
     }
@@ -73,11 +90,22 @@ function handleKeyPress(event) {
     }
 }
 
-async function showResult() {
+function showResult() {
     const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
-    if (confirm(`Quiz completed!\nAccuracy: ${accuracy.toFixed(2)}%\nPlay again?`)) {
-        location.reload();
-    }
+    document.getElementById('accuracy-display').innerText = `${accuracy.toFixed(2)}%`;
+
+    const table = document.getElementById('answers-display');
+    answers.forEach((answers, question) => {
+        const templateClone = document.getElementById('answers-template').content.cloneNode(true);
+        templateClone.querySelector('.question').innerText = question;
+        templateClone.querySelector('.wrong-answers').innerText = answers.incorrectAnswers.join(', ');
+        templateClone.querySelector('.correct-answer').innerText = answers.correctAnswer;
+
+        table.appendChild(templateClone);
+    })
+
+    document.getElementById('result-container').classList.remove("hidden");
+    document.getElementById('question-container').classList.add("hidden");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
