@@ -2,7 +2,7 @@ let data;
 let currentIndex = 0;
 let numWrong = 0;
 let guessType;
-const wrongAnswers = new Map();
+const answers = new Map();
 
 function startQuiz() {
     document.getElementById('result-container').style.display = "none";
@@ -61,9 +61,9 @@ function checkAnswer() {
     const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
     const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
 
-    if (!wrongAnswers.has(question)) {
-        wrongAnswers.set(question, {
-            correctAnswer: correctAnswer.join('/'),
+    if (!answers.has(question)) {
+        answers.set(question, {
+            correctAnswer: '',
             incorrectAnswers: new Array(),
         });
     }
@@ -72,13 +72,14 @@ function checkAnswer() {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }
-        wrongAnswers.get(question).incorrectAnswers.push('');
+        answers.get(question).incorrectAnswers.push('');
+        answers.get(question).correctAnswer = userAnswer;
         currentIndex++;
         document.getElementById('progress-bar').style.width = `${(currentIndex / data.length) * 100}%`;
 
         showQuestion();
     } else {
-        wrongAnswers.get(question).incorrectAnswers.push(userAnswer);
+        answers.get(question).incorrectAnswers.push(userAnswer);
 
         numWrong++;
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
@@ -97,7 +98,7 @@ function showResult() {
     document.getElementById('accuracy-display').innerText = `${accuracy.toFixed(2)}%`;
 
     const table = document.getElementById('answers-display');
-    wrongAnswers.forEach((answers, question) => {
+    answers.forEach((answers, question) => {
         const templateClone = document.getElementById('answers-template').content.cloneNode(true);
         templateClone.querySelector('.question').innerText = question;
         templateClone.querySelector('.wrong-answers').innerText = answers.incorrectAnswers.join(', ');
