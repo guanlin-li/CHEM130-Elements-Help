@@ -1,3 +1,9 @@
+:root {
+    --primary: #82CBF5;
+    --primary-darker: #72B1D6;
+    --off-white: #EFEFEF;
+}
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f2f2f2;
@@ -20,10 +26,49 @@ body {
 
 button {
     padding: 10px;
-    margin-top: 10px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--primary);
     cursor: pointer;
+    transition: background-color 200ms;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: var(--primary-darker);
+}
+
+input {
+    border-radius: 4px;
+    background-color: var(--off-white);
+    padding: 8px;
 }
 
 #result {
     color: red;
+    font-weight: bold;
+}
+
+#question {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.answer input {
+    font-size: 16px;
+}
+
+.answer button {
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 4px;
+}
+
+.hidden {
+    display: none;
 }

@@ -4,15 +4,13 @@ let numWrong = 0;
 let guessType;
 let wrongAnswers = [];
 
-function startQuiz() {
-    guessType = document.getElementById('user-choice').value.trim().toUpperCase();
-    
-    if (guessType !== 'S' && guessType !== 'N') {
-        alert('Invalid choice. Please enter "S" or "N".');
+function startQuiz(guessType) {
+    if (guessType !== 'symbols' && guessType !== 'names')
         return;
-    }
 
-    document.getElementById('prompt').style.display = 'none';
+    guessType = guessType;
+    document.getElementById('quiz-menu').classList.add("hidden");
+    document.getElementById('quiz-display').classList.remove("hidden");
     fetchData();
 }
 
@@ -43,7 +41,7 @@ function shuffleArray(array) {
 function showQuestion() {
     if (currentIndex < data.length) {
         const pair = data[currentIndex];
-        const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
+        const question = (guessType === 'symbols') ? pair.names.join('/') : pair.symbol;
         document.getElementById('question').innerText = question;
         document.getElementById('user-input').value = ''; // Clear the user-input box
     } else {
@@ -54,7 +52,7 @@ function showQuestion() {
 function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
     const pair = data[currentIndex];
-    const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
+    const correctAnswer = (guessType === 'symbols') ? [pair.symbol] : pair.names;
     if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer)) {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
@@ -118,4 +116,11 @@ async function showResult() {
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('user-input').addEventListener('keypress', handleKeyPress);
+
+    document.getElementById("symbols-button").addEventListener('click', () => {
+        startQuiz("symbols")
+    });
+    document.getElementById("name-button").addEventListener('click', () => {
+        startQuiz("names")
+    });
 });
