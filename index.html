@@ -8,16 +8,26 @@
     <title>Learn the CHEM130 Elements</title>
 </head>
 <body>
-    <div id="quiz-container">
+    <main id="quiz-container">
         <h1>Learn the CHEM130 Elements</h1>
-        <p id="prompt">Type S to learn the symbols and N to learn the elements' names:</p>
-        <input type="text" id="user-choice" placeholder="Type 'S' or 'N'">
-        <button onclick="startQuiz()">Start Quiz</button>
-        <p id="question"></p>
-        <input type="text" id="user-input" placeholder="Your answer">
-        <button onclick="checkAnswer()">Submit</button>
-        <p id="result"></p>
-    </div>
+        <div id="quiz-menu">
+            <p>Choose what you want to learn</p>
+            <button id="symbols-button">
+                Learn Symbols
+            </button>
+            <button id="name-button">
+                Learn Element Names
+            </button>
+        </div>
+        <div id="quiz-display" class="hidden">
+            <p id="question"></p>
+            <div class="flex-row answer">
+                <input type="text" id="user-input" placeholder="Your answer">
+                <button onclick="checkAnswer()">Submit</button>
+            </div>
+            <p id="result"></p>
+        </div>
+    </main>
     <div id="wrong-answers-container" style="display: none;">
         <h2>Incorrect Answers</h2>
         <ul id="wrong-answers-list"></ul>
