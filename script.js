@@ -62,7 +62,7 @@ function checkAnswer() {
     if (!wrongAnswers.has(correctAnswer)) {
         wrongAnswers[question] = {
             correctAnswer: correctAnswer.join('/'),
-            incorrectAnswers: [userAnswer],
+            incorrectAnswers: new Array(),
         };
     }
 
@@ -70,12 +70,12 @@ function checkAnswer() {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }
-        wrongAnswers[question].incorrectAnswers[wrongAnswers[question].incorrectAnswers.length()] = '';
+        wrongAnswers[question].incorrectAnswers[wrongAnswers[question].incorrectAnswers.length] = '';
         currentIndex++;
         showQuestion();
     } else {
         const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
-        wrongAnswers[question].incorrectAnswers[wrongAnswers[question].incorrectAnswers.length()] = userAnswer;
+        wrongAnswers[question].incorrectAnswers[wrongAnswers[question].incorrectAnswers.length] = userAnswer;
 
         numWrong++;
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
