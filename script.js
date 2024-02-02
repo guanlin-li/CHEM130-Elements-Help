@@ -2,7 +2,7 @@ let data;
 let currentIndex = 0;
 let numWrong = 0;
 let guessType;
-let wrongAnswers = {};
+let wrongAnswers = new Map();
 
 function startQuiz() {
     document.getElementById('result-container').style.display = "none";
