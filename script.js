@@ -67,9 +67,7 @@ function checkAnswer() {
         const wrongAnswersContainer = document.getElementById('wrong-answers-container');
         const wrongAnswersList = document.getElementById('wrong-answers-list');
         
-        // Assuming 'pair' is an object with 'names' and 'symbol' properties
-        const pair = { names: 'Example Name', symbol: 'Ex' };
-        
+        // Assuming 'pair' is an object with 'names' and 'symbol' properties        
         const listItemText = `${pair.names} - ${pair.symbol}`;
         
         // Check if the same list item text already exists
