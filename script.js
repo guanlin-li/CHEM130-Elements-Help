@@ -57,6 +57,7 @@ function showQuestion() {
 function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim();
     const pair = data[currentIndex];
+    const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
     const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
 
     if (!wrongAnswers.has(correctAnswer)) {
@@ -70,12 +71,11 @@ function checkAnswer() {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }
-        wrongAnswers[question].incorrectAnswers[wrongAnswers[question].incorrectAnswers.length] = '';
+        wrongAnswers[question].incorrectAnswers.push('');
         currentIndex++;
         showQuestion();
     } else {
-        const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
-        wrongAnswers[question].incorrectAnswers[wrongAnswers[question].incorrectAnswers.length] = userAnswer;
+        wrongAnswers[question].incorrectAnswers.push(userAnswer);
 
         numWrong++;
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
