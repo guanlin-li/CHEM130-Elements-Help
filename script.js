@@ -16,6 +16,7 @@ function startQuiz() {
     }
 
     document.getElementById('prompt').style.display = 'none';
+    document.getElementById('progress-bar').style.width = `0%`;
     fetchData();
 }
 
@@ -73,7 +74,7 @@ function checkAnswer() {
         }
         wrongAnswers.get(question).incorrectAnswers.push('');
         currentIndex++;
-        document.getElementById('progress-bar').style.width = `${currentIndex / data.length}%`;
+        document.getElementById('progress-bar').style.width = `${(currentIndex / data.length) * 100}%`;
 
         showQuestion();
     } else {
