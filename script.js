@@ -76,7 +76,7 @@ function checkAnswer() {
             listItem.appendChild(document.createTextNode(listItemText));
             wrongAnswersList.appendChild(listItem);
         }
-        wrongAnswersContainer.style.display = 'block';              
+        //wrongAnswersContainer.style.display = 'block';              
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
     }
