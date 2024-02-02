@@ -65,10 +65,19 @@ function checkAnswer() {
         //wrongAnswers[numWrong] = pair;
         numWrong++;
         const wrongAnswersContainer = document.getElementById('wrong-answers-container');
-        const wrongAnswersList = document.getElementById('wrong-answers-list');  
-        const listItem = document.createElement('li');
-        listItem.appendChild(document.createTextNode(`${pair.names} - ${pair.symbol}`));
-        if (document.querySelector('wrong-answers-list li:last-child') != listItem) {
+        const wrongAnswersList = document.getElementById('wrong-answers-list');
+        
+        // Assuming 'pair' is an object with 'names' and 'symbol' properties
+        const pair = { names: 'Example Name', symbol: 'Ex' };
+        
+        const listItemText = `${pair.names} - ${pair.symbol}`;
+        
+        // Check if the same list item text already exists
+        const listItemAlreadyExists = Array.from(wrongAnswersList.children).some(item => item.textContent === listItemText);
+        
+        if (!listItemAlreadyExists) {
+            const listItem = document.createElement('li');
+            listItem.appendChild(document.createTextNode(listItemText));
             wrongAnswersList.appendChild(listItem);
         }
         wrongAnswersContainer.style.display = 'block';              
