@@ -6,7 +6,7 @@ let wrongAnswers = {};
 
 function startQuiz() {
     document.getElementById('result-container').style.display = "none";
-    document.getElementById('quiz-container').style.display = "default";
+    document.getElementById('quiz-container').style.display = "always";
 
     guessType = document.getElementById('user-choice').value.trim().toUpperCase();
 
@@ -58,22 +58,25 @@ function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim();
     const pair = data[currentIndex];
     const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
+
+    if (!wrongAnswers.has(correctAnswer)) {
+        wrongAnswers[question] = {
+            correctAnswer: correctAnswer.join('/'),
+            incorrectAnswers: [userAnswer],
+        };
+    }
+
     if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer.toUpperCase())) {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
         }
+        wrongAnswers[question].incorrectAnswers[wrongAnswers[question].incorrectAnswers.length()] = '';
         currentIndex++;
         showQuestion();
     } else {
         const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
-        if (wrongAnswers.has(question)) {
-            wrongAnswers[question].userAnswers[wrongAnswers[question].userAnswers.length()] = userAnswer;
-        } else {
-            wrongAnswers[question] = {
-                correctAnswer: correctAnswer.join('/'),
-                userAnswers: [userAnswer],
-            };
-        }
+        wrongAnswers[question].incorrectAnswers[wrongAnswers[question].incorrectAnswers.length()] = userAnswer;
+
         numWrong++;
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
@@ -88,13 +91,18 @@ function handleKeyPress(event) {
 
 function showResult() {
     const accuracy = ((currentIndex - numWrong) / currentIndex) * 100 || 0;
-    document.getElementById('accuracy-display').innerText = accuracy;
+    document.getElementById('accuracy-display').innerText = `${accuracy.toFixed(2)}%`;
 
-    document.getElementById('wrong-answers-display').innerText = Array.from(wrongAnswers).map(([question, answers]) => {
-        `${question} (${answers.correctAnswer}): ${answers.userAnswers.join(', ')}`
-    }).join('\n');
+    wrongAnswers.forEach(([question, answers]) => {
+        let templateClone = document.getElementById('answers-template').content.cloneNode(true);
+        templateClone.getElementsByClassName('question')[0].innerText = question;
+        templateClone.getElementsByClassName('wrong-answers')[0].innerText = answers.incorrectAnswers.join(', ');
+        templateClone.getElementsByClassName('correct-answer')[0].innerText = answers.correctAnswer;
 
-    document.getElementById('result-container').style.display = "default";
+        document.getElementById('answers-display').appendChild(templateClone);
+    })
+
+    document.getElementById('result-container').style.display = "always";
     document.getElementById('quiz-container').style.display = "none";
 }
 
