@@ -9,7 +9,7 @@ function startQuiz(type) {
       return;
   
     document.getElementById('result-container').classList.add("hidden");
-    document.getElementById('question-container')..classList.remove("hidden");
+    document.getElementById('question-container').classList.remove("hidden");
     document.getElementById('quiz-menu').classList.add("hidden");
     document.getElementById('progress-bar').style.width = `0%`;
 

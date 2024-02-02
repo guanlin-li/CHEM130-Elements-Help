@@ -1,6 +1,6 @@
 :root {
-    --primary: #096dd9;
-    --primary-darker: #1d39c4;
+    --primary: #40a9ff;
+    --primary-darker: #597ef7;
     --off-white: #EFEFEF;
 }
 
@@ -78,6 +78,7 @@ input {
     border-radius: 4px;
     background-color: var(--off-white);
     padding: 8px;
+    border: none;
 }
 
 #result, .wrong-answers {
