@@ -94,7 +94,7 @@ function showResult() {
     document.getElementById('accuracy-display').innerText = `${accuracy.toFixed(2)}%`;
 
     const table = document.getElementById('answers-display');
-    wrongAnswers.forEach(([question, answers]) => {
+    wrongAnswers.forEach((question, answers) => {
         const templateClone = document.getElementById('answers-template').content.cloneNode(true);
         templateClone.querySelector('.question').innerText = question;
         templateClone.querySelector('.wrong-answers').innerText = answers.incorrectAnswers.join(', ');
