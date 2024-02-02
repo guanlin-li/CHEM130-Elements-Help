@@ -41,7 +41,7 @@ function shuffleArray(array) {
 function showQuestion() {
     if (currentIndex < data.length) {
         const pair = data[currentIndex];
-        const question = (guessType == 'symbols') ? pair.names.join('/') : pair.symbol;
+        const question = (guessType === 'symbols') ? pair.names.join('/') : pair.symbol;
         document.getElementById('question').innerText = question;
         document.getElementById('user-input').value = ''; // Clear the user-input box
     } else {
@@ -52,7 +52,7 @@ function showQuestion() {
 function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim().toUpperCase();
     const pair = data[currentIndex];
-    const correctAnswer = (guessType == 'symbols') ? pair.symbol : pair.names;
+    const correctAnswer = (guessType === 'symbols') ? [pair.symbol] : pair.names;
     if (correctAnswer.map(answer => answer.toUpperCase()).includes(userAnswer)) {
         if(document.getElementById('result').innerText.includes('Incorrect')) {
             document.getElementById('result').innerText = '';
