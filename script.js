@@ -4,19 +4,16 @@ let numWrong = 0;
 let guessType;
 const answers = new Map();
 
-function startQuiz() {
-    document.getElementById('result-container').style.display = "none";
-    document.getElementById('question-container').style = {};
-
-    guessType = document.getElementById('user-choice').value.trim().toUpperCase();
-
-    if (guessType !== 'S' && guessType !== 'N') {
-        alert('Invalid choice. Please enter "S" or "N".');
-        return;
-    }
-
-    document.getElementById('prompt').style.display = 'none';
+function startQuiz(type) {
+    if (type !== 'symbols' && type !== 'names')
+      return;
+  
+    document.getElementById('result-container').classList.add("hidden");
+    document.getElementById('question-container').classList.remove("hidden");
+    document.getElementById('quiz-menu').classList.add("hidden");
     document.getElementById('progress-bar').style.width = `0%`;
+
+    guessType = type;
     fetchData();
 }
 
@@ -47,7 +44,7 @@ function shuffleArray(array) {
 function showQuestion() {
     if (currentIndex < data.length) {
         const pair = data[currentIndex];
-        const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
+        const question = (guessType === 'symbols') ? pair.names.join('/') : pair.symbol;
         document.getElementById('question').innerText = question;
         document.getElementById('user-input').value = ''; // Clear the user-input box
     } else {
@@ -58,8 +55,8 @@ function showQuestion() {
 function checkAnswer() {
     const userAnswer = document.getElementById('user-input').value.trim();
     const pair = data[currentIndex];
-    const question = (guessType === 'S') ? pair.names.join('/') : pair.symbol;
-    const correctAnswer = (guessType === 'S') ? [pair.symbol] : pair.names;
+    const question = (guessType === 'symbols') ? pair.names.join('/') : pair.symbol;
+    const correctAnswer = (guessType === 'symbols') ? [pair.symbol] : pair.names;
 
     if (!answers.has(question)) {
         answers.set(question, {
@@ -81,7 +78,7 @@ function checkAnswer() {
     } else {
         answers.get(question).incorrectAnswers.push(userAnswer);
 
-        numWrong++;
+        numWrong++;          
         document.getElementById('result').innerText = `Incorrect (${correctAnswer.join('/')})`;
         showQuestion();
     }
@@ -107,10 +104,17 @@ function showResult() {
         table.appendChild(templateClone);
     })
 
-    document.getElementById('result-container').style = {};
-    document.getElementById('question-container').style.display = "none";
+    document.getElementById('result-container').classList.remove("hidden");
+    document.getElementById('question-container').classList.add("hidden");
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById('user-input').addEventListener('keypress', handleKeyPress);
+
+    document.getElementById("symbols-button").addEventListener('click', () => {
+        startQuiz("symbols")
+    });
+    document.getElementById("name-button").addEventListener('click', () => {
+        startQuiz("names")
+    });
 });

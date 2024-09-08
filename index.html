@@ -5,25 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
     <title>Learn the CHEM130 Elements</title>
 </head>
 <body>
-    <div id="main-window">
+    <main id="main-window">
         <div id="progress-bar-container">
             <div id="progress-bar" style="width: 0%;"></div>
         </div>
         <div id="quiz-container">
             <h1>Learn the CHEM130 Elements</h1>
-            <div id="question-container">
-                <p id="prompt">Type S to learn the symbols and N to learn the elements' names:</p>
-                <input type="text" id="user-choice" placeholder="Type 'S' or 'N'">
-                <button id="start-button" onclick="startQuiz()">Start Quiz</button>
+                <div id="quiz-menu">
+            <p>Choose what you want to learn</p>
+            <button id="symbols-button">
+                Learn Symbols
+            </button>
+            <button id="name-button">
+                Learn Element Names
+            </button>
+        </div>
+            <div id="question-container" class="hidden">
                 <p id="question"></p>
-                <input type="text" id="user-input" placeholder="Your answer" autocomplete="off">
-                <button onclick="checkAnswer()">Submit</button>
+                <div class="flex-row">
+                    <input type="text" id="user-input" placeholder="Your answer" autocomplete="off">
+                    <button onclick="checkAnswer()">Submit</button>
+                </div>
                 <p id="result"></p>
             </div>
-            <div id="result-container" style="display: none;">
+            <div id="result-container" class="hidden">
                 <h2>Results</h2>
                 <p>Accuracy: <span id="accuracy-display"></span></p>
                 <div id="answers-container">
@@ -49,7 +58,7 @@
                 <button onclick="location.reload()">Restart</button>
             </div>
         </div>
-    </div>
+    </main>
     <script src="script.js"></script>
 </body>
 </html>
